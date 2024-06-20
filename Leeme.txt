@@ -1,2 +1,0 @@
-Este proyecto fue desarrollado y compilado en Linux, se utiliza el compilador g++ tambien compatible con Windows.
-Se utiliza la Libreria ncurses basada en curses, en Windows conocido como pdcurses.
