@@ -1,0 +1,81 @@
+@startuml
+struct Nodo<T>
+{
+    -dato : T
+    -siguiente : Nodo* 
+    +Nodo(dato : T, siguiente : Nodo* = nullptr)
+}
+class Pila <T>
+{
+    -tope : nodo<T>*
+    +Pila()
+    +~Pila()
+    +size() : int
+    +estaVacia() : bool
+    +push(T) : void
+    +pop() : T
+    +front() : T&
+    +back() : T&
+    +copiarPila() : Pila<T>
+}
+class Cola<T>
+{
+    -primero : nodo<T>*
+    -ultimo : nodo<T>*
+    +Cola()
+    +~Cola()
+    +size() : int
+    +estaVacia() : bool
+    +push(T dato) : void
+    +pop() : T
+    +front() : T&
+    +back() : T&
+    +copiarCola() : Cola<T>
+}
+class Lista<T>
+{
+    -ini : Nodo<T>*
+    -tamano : int
+    +Lista()
+    +~Lista()
+    +AnadirIni(dato : T) : void
+    +AnadirFin(dato: T) : void
+    +AgregarMultiple(data: T, veces: int) : void
+    +longitud() : int
+    +Mostrar() : void
+}
+class Alumno
+{
+    -nombre : string
+    -grado : string
+    -genero : string
+    +Alumno()
+    +Mostrar() : void
+}
+class HashEntity
+{
+    -key : int
+    -value : string
+    +HashEntity()
+    +getKey() : int
+    +getValue : string
+}
+class HashTable
+{
+    -entity : HashEntity** 
+    -_cantidadElementos : int
+    -_tamanoTabla : int
+    +HashTable(tamanoTablaD : int = 120)
+    +insertar(key: int, valor : string)
+    +tamanoTabla() : int
+    +tamanoActual() : int
+    +buscar(key : int) : string
+    +imprimir(keys : int*) : void
+}
+
+HashTable "1  " *--> " 0 .. *" HashEntity : contiene
+Pila "1  " *--> "1  " Nodo : posee
+Cola "1  " *--> "1  " Nodo : posee
+Lista "1  " *--> "1  " Nodo : posee
+
+@enduml
