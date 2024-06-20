@@ -27,6 +27,7 @@ Se utiliza la Libreria ncurses basada en curses, en Windows pude emplearse pdcur
     ## Linux:
 
     Compilar:
+    
         $ g++ src.cpp -o innova.out -lncurses
 
     Compilar y revisar fugas de memoria Usando AddressSanitizer - ASan. Solo compatible en sistemas Linux/Unix:
