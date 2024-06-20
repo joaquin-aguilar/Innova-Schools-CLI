@@ -3,7 +3,7 @@
 
 #include <string>
 #define MATERIAS_LEN 7
-namespace Lib
+namespace Datasets
 {
 
     std::string materiasArr[] =  

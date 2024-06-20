@@ -2,7 +2,7 @@
 #define NOMBRES_HPP
 
 #include <string>
-namespace Lib
+namespace Datasets
 {
 
     //Bienvenido a los datos string de nombres y apellidos
