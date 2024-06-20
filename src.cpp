@@ -1,6 +1,6 @@
+#include <curses.h>
 #include <iostream>
 #include <ctime>
-#include <ncurses.h>
 #include "./Utilidades/Graficos.hpp"
 #include "./Utilidades/Input.hpp"
 #include "./Utilidades/Parsers.hpp"
@@ -65,12 +65,14 @@ int main()
 	for (int i = 0; i < alum_in * 0.2; i++)
 		destacados.push(new Destacado());
 
-	do{
+	do
+	{
 		printw("Ingrese numero de administradores (Minimo 1, Maximo 5): "); 
 		doce_in = inputTecladoInt();
 		printw("\n");
 		refresh();
-	} while (doce_in > 5 || doce_in < 1);
+	} 
+	while (doce_in > 5 || doce_in < 1);
 
 
 	HashTable hash = HashTable(doce_in); //Declaración de Hash

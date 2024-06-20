@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include <functional>
-#include <ncurses.h>
+#include <curses.h>
 #include <string>
 #include <vector>
 #include "./Filtros.hpp"

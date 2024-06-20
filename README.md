@@ -10,6 +10,7 @@ Se utiliza la Libreria ncurses basada en curses, en Windows pude emplearse pdcur
 
 1. **Instalacion de dependencias**
 
+    ## Linux
     En Fedora:
 
         $ dnf install ncurses-devel
@@ -17,18 +18,32 @@ Se utiliza la Libreria ncurses basada en curses, en Windows pude emplearse pdcur
     En Ubuntu:
 
         $ sudo apt-get install ncurses-dev
+    ## Windows
+
+    Revisar la documentacion en [la pagina oficial de pdcurses](https://pdcurses.org/).
 
 2. **Compilar el proyecto usando g++:**
 
-    Compilar:
+    ## Linux:
 
+    Compilar:
         $ g++ src.cpp -o innova.out -lncurses
 
     Compilar y revisar fugas de memoria Usando AddressSanitizer - ASan. Solo compatible en sistemas Linux/Unix:
 
         $ g++ --sanitize=address -g src.cpp -o innova.out -lncurses
+    
+    ## Windows
 
+    Compilar:
+
+        $ g++ src.cpp -o innova.exe -lpdcurses
 
 3. **Ejecutar el binario del proyecto:**
 
+    ## Linux
+
         $ ./innova.out
+    ## Windows
+
+        $ innova.exe

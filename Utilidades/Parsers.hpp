@@ -2,7 +2,7 @@
 #define PARSERS_HPP
 
 
-#include <ncurses.h>
+#include <curses.h>
 #include <string>
 #include <cstring>
 #include "../Estructuras_Datos/Cola.hpp"

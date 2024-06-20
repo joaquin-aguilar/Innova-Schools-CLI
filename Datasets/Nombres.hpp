@@ -9,7 +9,7 @@ namespace Datasets
 #define NOMBRES_LEN 100
     std::string nombresArr[] =
     {
-            "Maria", "Juan", "Ana", "Pedro", "Elena", "Luis", "Laura", "Carlos", "Carmen", "Jose",
+            "María", "Juan", "Ana", "Pedro", "Elena", "Luis", "Laura", "Carlos", "Carmen", "Jose",
             "Isabel", "Miguel", "Sofia", "Antonio", "Eva", "Javier", "Rosa", "Pablo", "Lucia", "Francisco",
             "Teresa", "Diego", "Raquel", "Manuel", "Marina", "Fernando", "Natalia", "Angel", "Clara", "Ruben",
             "Lorena", "Ricardo", "Beatriz", "Alberto", "Adriana", "Jorge", "Julia", "Guillermo", "Ines", "Rafael",
@@ -17,8 +17,8 @@ namespace Datasets
             "Mar�a Jose", "Mario", "Rocio", "Daniel", "Nerea", "Gonzalo", "Paula", "Jose Luis", "Alicia", "Alvaro",
             "Elena Maria", "Juan Carlos", "Clara Maria", "Jose Maria", "Maria Isabel", "Victor", "Silvia", "Jesus", "Marisa",
             "Oscar", "Esther", "Andres", "Angelica", "Angeles", "Ramon", "Laura Maria", "Jaime", "Concepcion", "Diego Jose",
-            "Celia", "Manuel Jesus", "Mar�a Teresa", "Joaquin", "Pilar", "Santiago", "Marta", "�lvaro Jos�", "Carmen Mar�a", "Joaquin Jose",
-            "Veronica", "Hector", "Lourdes", "Marcos", "Soledad", "Francisco Javier", "Maria Pilar", "Jes�s Maria", "Monica", "Tomas", "Iker"
+            "Celia", "Manuel Jesus", "María Teresa", "Joaquin", "Pilar", "Santiago", "Marta", "Álvaro José", "Carmen María", "Joaquin Jose",
+            "Veronica", "Hector", "Lourdes", "Marcos", "Soledad", "Francisco Javier", "Maria Pilar", "Jesús María", "Monica", "Tomas", "Iker"
     };
 
 #define APELLIDOS_LEN 90
