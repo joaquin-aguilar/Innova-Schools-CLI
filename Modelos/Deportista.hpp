@@ -4,10 +4,10 @@
 
 #include <string>
 #include <functional>
-#include "../Utilidades/Deportes.hpp"
-#include "../Utilidades/Nombres.hpp"
+#include "../Datasets/Deportes.hpp"
+#include "../Datasets/Nombres.hpp"
 using namespace std; 
-using namespace Lib;
+using namespace Datasets;
 
 
 class Deportista 

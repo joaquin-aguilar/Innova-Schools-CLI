@@ -4,10 +4,10 @@
 #include <iostream>
 #include <string>
 #include <functional>
-#include "./Utilidades/Nombres.hpp"
-#include "./Utilidades/Materias.hpp"
+#include "./Datasets/Nombres.hpp"
+#include "./Datasets/Materias.hpp"
 using namespace std; 
-using namespace Lib;
+using namespace Datasets;
 
 
 class Docentes {

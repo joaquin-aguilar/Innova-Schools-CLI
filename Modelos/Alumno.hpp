@@ -3,10 +3,10 @@
 
 #include <iostream>
 #include <functional>
-#include "../Utilidades/Nombres.hpp"
+#include "../Datasets/Nombres.hpp"
 
 using namespace std; 
-using namespace Lib;
+using namespace Datasets;
 
 class Alumno {
 	string nombre;

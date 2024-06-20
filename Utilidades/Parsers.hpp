@@ -9,7 +9,7 @@
 #include "../Estructuras_Datos/Pila.hpp"
 #include "../Modelos/Alumno.hpp"
 #include "../Modelos/Deportista.hpp"
-#include "../Modelos/Inteligente.hpp"
+#include "../Modelos/Destacado.hpp"
 
 using namespace std;
 

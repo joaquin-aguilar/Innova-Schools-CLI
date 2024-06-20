@@ -2,21 +2,19 @@
 #include <ctime>
 #include <ncurses.h>
 #include "./Utilidades/Graficos.hpp"
-#include "./Utilidades/Nombres.hpp"
 #include "./Utilidades/Input.hpp"
 #include "./Utilidades/Parsers.hpp"
-#include "./Utilidades/Filtros.hpp"
 #include "./Estructuras_Datos/Hashtable.hpp" 
 #include "./Estructuras_Datos/Pila.hpp"
 #include "./Estructuras_Datos/Cola.hpp"
 #include "./Estructuras_Datos/Lista.hpp"
 #include "./Modelos/Deportista.hpp"
 #include "./Modelos/Alumno.hpp"
-#include "./Modelos/Inteligente.hpp"
+#include "./Modelos/Destacado.hpp"
 #include "./Ordenamiento/OrdMerge.hpp"
 #include "./Ordenamiento/Quickmin.hpp"
 using namespace std; 
-using namespace Lib;
+using namespace Datasets;
 
 template<typename T>
 void imprimir(T e)

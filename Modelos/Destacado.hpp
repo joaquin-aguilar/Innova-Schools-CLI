@@ -1,12 +1,12 @@
-#ifndef INTELIGENTE_HPP
-#define INTELIGENTE_HPP
+#ifndef DESTACADO_HPP
+#define DESTACADO_HPP
 
 #include <functional>
 #include <string>
-#include "../Utilidades/Materias.hpp"
-#include "../Utilidades/Nombres.hpp"
+#include "../Datasets/Materias.hpp"
+#include "../Datasets/Nombres.hpp"
 
-using namespace Lib;
+using namespace Datasets;
 
 class Destacado
 {
@@ -53,4 +53,4 @@ public:
 	}
 };
 
-#endif // !INTELIGENTE_HPP
+#endif // !DESTACADO_HPP
