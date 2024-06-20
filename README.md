@@ -1,7 +1,8 @@
 # Innova-Schools-CLI
 Simulador de Administración de un colegio para demostrar la aplicación de estructuras de datos.
+
 Este proyecto fue desarrollado y compilado en Linux, se utiliza el compilador g++ tambien compatible con Windows.
-Se utiliza la Libreria ncurses basada en curses, en Windows conocido como pdcurses.
+Se utiliza la Libreria ncurses basada en curses, en Windows pude emplearse pdcurses.
 
 
 ### Instrucciones para compilar y ejecutar el proyecto
