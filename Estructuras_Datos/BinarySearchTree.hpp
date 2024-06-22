@@ -1,5 +1,5 @@
-#ifndef BYNARY_SEARCH_TREE_HPP
-#define BYNARY_SEARCH_TREE_HPP
+#ifndef BINARY_SEARCH_TREE_HPP
+#define BINARY_SEARCH_TREE_HPP
 
 #include <vector>
 #include <string>
@@ -162,4 +162,4 @@ Rama<T>* BynarySearchTree<T>::minimoValor(Rama<T>* nodo)
         actual = actual->izquierda;
     return actual;
 }
-#endif // !BYNARY_SEARCH_TREE_HPP
+#endif // !BINARY_SEARCH_TREE_HPP
