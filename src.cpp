@@ -1,6 +1,7 @@
 #include <curses.h>
 #include <iostream>
 #include <ctime>
+#include <string>
 #include "./Utilidades/Graficos.hpp"
 #include "./Utilidades/Input.hpp"
 #include "./Utilidades/Parsers.hpp"
@@ -8,6 +9,7 @@
 #include "./Estructuras_Datos/Pila.hpp"
 #include "./Estructuras_Datos/Cola.hpp"
 #include "./Estructuras_Datos/Lista.hpp"
+#include "./Estructuras_Datos/Grafo.hpp"
 #include "./Modelos/Deportista.hpp"
 #include "./Modelos/Alumno.hpp"
 #include "./Modelos/Destacado.hpp"
@@ -44,8 +46,22 @@ int main()
 	Lista<Alumno*> alumnos = Lista<Alumno*>(); 
 	Pila<Deportista*> deportistas = Pila<Deportista*>(); 
 	Cola<Destacado*> destacados = Cola<Destacado*>();
+	GrafoDirigido<int> grafo = GrafoDirigido<int>();
 	int alum_in = 0, doce_in = 0;
 	
+	grafo.agregarVertice(10); // Vértice 0 con valor 10
+    grafo.agregarVertice(20); // Vértice 1 con valor 20
+    grafo.agregarVertice(30); // Vértice 2 con valor 30
+    grafo.agregarVertice(40); // Vértice 3 con valor 40
+    grafo.agregarVertice(50); // Vértice 4 con valor 50
+
+    // Agregar algunas aristas
+    grafo.agregarArista(0, 1);
+    grafo.agregarArista(0, 4);
+    grafo.agregarArista(1, 2);
+    grafo.agregarArista(1, 3);
+    grafo.agregarArista(2, 3);
+    grafo.agregarArista(3, 4);
 	// obtener y procesar inputs iniciales
 	do 
 	{
@@ -176,24 +192,29 @@ int main()
 				printw("%i ", dod[i]); 
 			getch();
 		}
-
-
-		if (o == 10) 
+		if (o == 10)
+		{
+			vector<string> datos;
+			for (string str : grafo.toStrings())
+				datos.push_back(str);
+			for (string str : grafo.matrizAdyacencia())
+				datos.push_back(str);
+			
+			mostrarFiltrar(datos);
+		}
+		if (o == 11) 
 		{
 			Nodo<Alumno*>* raiz = alumnos.raiz();
 			Nodo<Alumno*>* alumnoActual;
 			Deportista* deportista;
 			Destacado*  destacado;
-
-			
 			while (raiz != nullptr)
 			{
 				alumnoActual = raiz;
 				raiz = raiz->siguiente; 
 				delete alumnoActual->dato;
 			}
-			
-
+		
 			while (!deportistas.estaVacia())
 			{
 				deportista = deportistas.pop();

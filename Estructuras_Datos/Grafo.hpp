@@ -1,80 +1,102 @@
+#include <curses.h>
+#include <string>
 #include <vector>
-#include <functional>
+
 using namespace std;
 
-template<class T,T vacio=-1>
-class CGrafo {
-private:
-	class CArco {
-	public:
-		T info;
-		int v; //indice del vertice de llegada
-		CArco(int vLlegada) {
-			info = vacio;
-			v = vLlegada;
-		}
-	};
-	class CVertice {
-	public:
-		T info;
-		vector<CArco*>* ady; //Lista de adyacencia
-		CVertice() {
-			info = vacio;
-			ady = new vector<CArco*>();
-		}
-	};
-	//Lista de vértices
-	vector<CVertice*>* vertices;
+template <typename V>
+class GrafoDirigido 
+{
+    // Vector de listas de adyacencia
+    vector<vector<int>> listaAdyacencia;
+
+    // Vector para almacenar los valores de cada vértice
+    vector<V> valores;
 
 public:
-	CGrafo() {
-		vertices = new vector<CVertice*>();
-	}
+    GrafoDirigido() {}
 
-	//Operaciones del Grafo
-	int adicionarVertice(T info) {
-		CVertice * vert = new CVertice();
-		vert->info = info;
-		vertices->push_back(vert);
-		return vertices->size() - 1;
-	}
+    void agregarVertice(V valor) 
+    {
+        listaAdyacencia.push_back(vector<int>());
+        valores.push_back(valor);
+    }
 
-	int cantidadVertices() {
-		return vertices->size();
-	}
+    void agregarArista(int fuente, int destino)
+    {
+        // Verificar que src y dest son válidos
+        if (fuente >= 0 && fuente < listaAdyacencia.size() && 
+            destino >= 0 && destino < listaAdyacencia.size())
+            listaAdyacencia[fuente].push_back(destino);
+        else
+        {
+            printw("Error: Vértices no válidos.\n");
+            refresh();
+        }
+    }
 
-	T obtenerVertice(int v) {
-		return (vertices->at(v))->info;
-	}
-	void modificarVertice(int v, T info) {
-		(vertices->at(v))->info = info;
-	}
-	//Operaciones del arco
-	int adicionarArco(int v, int vLlegada) {
-		CVertice* ver = vertices->at(v);
-		//Crear el objeto ARCO
-		CArco* arc = new CArco(vLlegada);
-		ver->ady->push_back(arc);
-		return ver->ady->size() - 1;
-	}
-	
-	int cantidadArcos(int v) {
-		return (vertices->at(v))->ady->size();
-	}
+    // Método para obtener el valor de un vértice dado
+    V obtenerValor(int vertice) 
+    {
+        // Verificar que el vértice es válido
+        if (vertice >= 0 && vertice < valores.size())
+            return valores[vertice];
+        else 
+        {
+            printw("Error: Vértice no válido.\n");
+            refresh();
+            return V();
+        }
+    }
 
-	T obtenerArco(int v, int apos) {
-		CVertice* ver = vertices->at(v);
-		return (ver->ady->at(apos))->info;
-	}
+    vector<string> matrizAdyacencia() 
+    {
+        vector<string> res;
+        string str;
+        int _v = listaAdyacencia.size();
+    
+        vector<vector<int>> matrizAdy(_v, vector<int>(_v, 0));
 
-	void modificarArco(int v, int apos, T info) {
-		CVertice* ver = vertices->at(v);
-		(ver->ady->at(apos))->info = info;
-	}
+        for (int i = 0; i < _v; ++i) 
+        {
+            for (int j : listaAdyacencia[i])
+                matrizAdy[i][j] = 1; 
+        }
 
-	int obtenerVerticeLlegada(int v, int apos) {
-		CVertice* ver = vertices->at(v);
-		return (ver->ady->at(apos))->v; //indice del vertice de llegada
-	}
+        // Mostrar la matriz de adyacencia
+        res.push_back(string("Matriz de adyacencia del grafo dirigido:\n"));
+        for (int i = 0; i < _v; ++i) 
+        {
+            for (int j = 0; j < _v; ++j) 
+            {
+                str += to_string(matrizAdy[i][j]);
+                str += " ";
+            }
+            str += "\n";
+            res.push_back(str);
+            str.clear();
+        }
+        return res;
+    }
+
+    // Método para imprimir el grafo dirigido con los valores de los vértices
+    vector<string> toStrings()
+    {
+        vector<string> strings;
+        int _v = listaAdyacencia.size(); // Obtener el número de vértices
+        
+
+        strings.push_back(string("Grafos:\n"));
+        for (int i = 0; i < _v; ++i) 
+        {
+            ostringstream ss;
+            ss << "Vértice " << i << " (Valor: " << valores[i] << ") tiene aristas dirigidas a:";
+
+            for (int j : listaAdyacencia[i])
+                ss << " -> Vértice " << j << " (Valor: " << valores[j] << ")";
+            ss << "\n";
+            strings.push_back(ss.str());
+        }
+        return strings;
+    }
 };
-
