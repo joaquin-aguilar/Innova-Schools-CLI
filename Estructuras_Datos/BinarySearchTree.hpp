@@ -6,7 +6,7 @@
 #include "Rama.hpp"
 
 template <typename T>
-class BynarySearchTree
+class BinarySearchTree
 {
 private:
     Rama<T>* raiz;
@@ -19,8 +19,8 @@ private:
     Rama<T>* buscarElemento(Rama<T>* nodo, T dato);
     Rama<T>* eliminarRecursivamente(Rama<T>* nodo, T valor);
     public:
-    BynarySearchTree(int(*grado)(T), std::string(*str)(T));
-    ~BynarySearchTree();
+    BinarySearchTree(int(*grado)(T), std::string(*str)(T));
+    ~BinarySearchTree();
     void push(T dato);
     std::vector<std::string> inOrder();
     Rama<T>* buscarElemento(T dato);
@@ -28,7 +28,7 @@ private:
 };
 
 template <typename T>
-BynarySearchTree<T>::BynarySearchTree(int(*grado)(T), std::string(*str)(T))
+BinarySearchTree<T>::BinarySearchTree(int(*grado)(T), std::string(*str)(T))
 {
     obtenerString = str;
     obtenerGrado = grado;
@@ -36,13 +36,13 @@ BynarySearchTree<T>::BynarySearchTree(int(*grado)(T), std::string(*str)(T))
 }
 
 template <typename T>
-BynarySearchTree<T>::~BynarySearchTree()
+BinarySearchTree<T>::~BinarySearchTree()
 {
     destruirRecursivamente(raiz);
 }
 
 template <typename T>
-void BynarySearchTree<T>::destruirRecursivamente(Rama<T>* nodo)
+void BinarySearchTree<T>::destruirRecursivamente(Rama<T>* nodo)
 {
     if (nodo != nullptr)
     {
@@ -54,7 +54,7 @@ void BynarySearchTree<T>::destruirRecursivamente(Rama<T>* nodo)
 }
 
 template <typename T>
-void BynarySearchTree<T>::_push(T dato, Rama<T>*& nodo)
+void BinarySearchTree<T>::_push(T dato, Rama<T>*& nodo)
 {
     if (nodo == nullptr)
     {
@@ -72,13 +72,13 @@ void BynarySearchTree<T>::_push(T dato, Rama<T>*& nodo)
 }
 
 template <typename T>
-void BynarySearchTree<T>::push(T dato)
+void BinarySearchTree<T>::push(T dato)
 {
     _push(dato, raiz);
 }
 
 template <typename T>
-void BynarySearchTree<T>::_inOrder(Rama<T>* nodo, std::vector<std::string>& salida)
+void BinarySearchTree<T>::_inOrder(Rama<T>* nodo, std::vector<std::string>& salida)
 {
     if (nodo != nullptr)
     {
@@ -89,13 +89,13 @@ void BynarySearchTree<T>::_inOrder(Rama<T>* nodo, std::vector<std::string>& sali
 }
 
 template<typename T>
-Rama<T>* BynarySearchTree<T>::buscarElemento(T valor)
+Rama<T>* BinarySearchTree<T>::buscarElemento(T valor)
 {
     return buscarElemento(raiz, valor);
 }
 
 template <typename T>
-std::vector<std::string> BynarySearchTree<T>::inOrder()
+std::vector<std::string> BinarySearchTree<T>::inOrder()
 {
     std::vector<std::string> conversion;
     _inOrder(raiz, conversion);
@@ -105,13 +105,13 @@ std::vector<std::string> BynarySearchTree<T>::inOrder()
 
 
 template <typename T>
-void BynarySearchTree<T>::eliminar(T valor)
+void BinarySearchTree<T>::eliminar(T valor)
 {
     raiz = eliminarRecursivamente(raiz, valor);
 }
 
 template <typename T>
-Rama<T>* BynarySearchTree<T>::eliminarRecursivamente(Rama<T>* nodo, T valor)
+Rama<T>* BinarySearchTree<T>::eliminarRecursivamente(Rama<T>* nodo, T valor)
 {
     if (nodo == nullptr)
         return nodo;
@@ -143,7 +143,7 @@ Rama<T>* BynarySearchTree<T>::eliminarRecursivamente(Rama<T>* nodo, T valor)
 }
 
 template<typename T>
-Rama<T>* BynarySearchTree<T>::buscarElemento(Rama<T>* nodo, T valor) 
+Rama<T>* BinarySearchTree<T>::buscarElemento(Rama<T>* nodo, T valor) 
 {
     if (nodo == nullptr || nodo->valor == valor) 
         return nodo;
@@ -155,7 +155,7 @@ Rama<T>* BynarySearchTree<T>::buscarElemento(Rama<T>* nodo, T valor)
 }
 
 template <typename T>
-Rama<T>* BynarySearchTree<T>::minimoValor(Rama<T>* nodo)
+Rama<T>* BinarySearchTree<T>::minimoValor(Rama<T>* nodo)
 {
     Rama<T>* actual = nodo;
     while (actual->izquierda != nullptr)
