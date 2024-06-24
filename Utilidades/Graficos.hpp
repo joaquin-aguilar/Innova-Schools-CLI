@@ -75,13 +75,10 @@ void imprimirContenido(const std::vector<std::string>& datos, int inicio)
 
 	// Obtener tamaño de la pantalla
     int max_y, max_x; 
-    getmaxyx(stdscr, max_y, max_x); 
-
-	int pos = 0;
+    getmaxyx(stdscr, max_y, max_x);
 	// posicionar el cursor e imprimir cada linea que permita el tamaño de la consola
     for (int i = inicio, y = 0; i < std::min((int)datos.size(), inicio + (max_y - 1)); ++i, ++y) 
 	{
-		pos = 0;
 		move(y, 0);
 		if(i > 0)
 			attron(COLOR_PAIR(3));
@@ -95,7 +92,6 @@ void imprimirContenido(const std::vector<std::string>& datos, int inicio)
 		{
 			printw("%c", datos[i][j]);
 		}
-		refresh();
     }
 
     refresh();
@@ -160,6 +156,117 @@ void mostrarFiltrar(std::vector<std::string>& alumnos)
 			break;
 		}
 	}
+}
+void imprimirGrafos(const std::vector<std::string>& grafos) 
+{
+    int inicio = 0;
+    while (true)
+    {
+        // Obtener tamaño de la pantalla
+        int max_y, max_x; 
+        getmaxyx(stdscr, max_y, max_x); 
+        std::string filtro = "Vértice";
+        std::string relacionados = "1";
+        std::string noRelacionados = "0";
+
+        // posicionar el cursor e imprimir cada línea que permita el tamaño de la consola
+        for (int i = inicio, y = 0; i < std::min((int)grafos.size(), inicio + (max_y - 1)); ++i, ++y) 
+        {
+            std::vector<std::string> palabras = dividirPalabras(grafos[i]);
+            std::vector<int> indicesVertice = obtenerIndices(grafos[i], filtro);
+            std::vector<int> indicesRelacionados = obtenerIndices(grafos[i], relacionados);
+            std::vector<int> indicesNoRelacionados = obtenerIndices(grafos[i], noRelacionados);
+            move(y, 0);
+            
+            // Imprimir palabras y aplicar color según las condiciones
+            for (int j = 0; j < palabras.size(); ++j)
+            {
+                bool coloreado = false;
+
+                // Buscar y colorear "0" en rojo
+                for (int k = 0; k < indicesNoRelacionados.size(); ++k)
+                {
+                    if (indicesNoRelacionados[k] == j)
+                    {
+                        attron(COLOR_PAIR(1)); 
+                        printw("%s ", palabras[j].c_str());
+                        attroff(COLOR_PAIR(1));
+                        coloreado = true;
+                        break;
+                    }
+                }
+
+                // Buscar y colorear "1" en verde
+                if (!coloreado)
+                {
+                    for (int k = 0; k < indicesRelacionados.size(); ++k)
+                    {
+                        if (indicesRelacionados[k] == j)
+                        {
+                            attron(COLOR_PAIR(2)); 
+                            printw("%s ", palabras[j].c_str());
+                            attroff(COLOR_PAIR(2));
+                            coloreado = true;
+                            break;
+                        }
+                    }
+                }
+
+                // Buscar y colorear "Vértice" y su indice en azul
+                if (!coloreado)
+                {
+                    for (int k = 0; k < indicesVertice.size(); ++k)
+                    {
+                        if (indicesVertice[k] == j && j + 1 < palabras.size())
+                        {
+                            attron(COLOR_PAIR(3)); 
+                            printw("%s %s ", palabras[j].c_str(), palabras[j + 1].c_str());
+                            attroff(COLOR_PAIR(3));
+                            coloreado = true;
+                            // Saltar la siguiente palabra para evitar duplicados
+                            ++j;
+                            break;
+                        }
+                    }
+                }
+
+                // Si ninguna condición se cumple, imprimir normalmente
+                if (!coloreado)
+                {
+                    printw("%s ", palabras[j].c_str()); 
+                }
+            }
+            printw("\n");
+        }
+
+        // Mostrar instrucciones de navegación
+        move(max_y - 1, 0); // Mover al final de la pantalla
+        attron(COLOR_PAIR(4));
+        printw("Usa las flechas para navegar. 'Intro' para salir.");
+        attroff(COLOR_PAIR(4));
+        refresh();
+
+        // Obtener entrada del usuario
+        int ch = getch();
+        if (ch == KEY_UP && inicio > 0)
+            inicio--;
+        else if (ch == KEY_DOWN && inicio < (int)(grafos.size()) - max_y + 1)
+            inicio++;
+        else if (ch == '\n')
+            break;
+    }
+
+    clear(); // Limpiar pantalla al salir del bucle
+}
+void menuGrafos()
+{
+	printw("1. mostrar grafos\n");
+	printw("2. añadir vértice\n");
+	printw("3. modificar vértice\n");
+	printw("4. añadir arista\n");
+	printw("5. eliminar arista\n");
+	printw("Salir pulsando intro\n");
+	refresh();
 }
 
 #endif //! GRAFICOS_HPP

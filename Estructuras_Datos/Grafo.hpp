@@ -22,12 +22,47 @@ public:
         valores.push_back(valor);
     }
 
+    void modificarVertice(int vertice, V nuevoValor)
+    {
+        // Verificar que fuente y destino son válidos
+        if (vertice >= 0 && vertice < valores.size())
+            valores[vertice] = nuevoValor;
+        else
+        {
+            printw("Error: Vértice no válido.\n");
+            refresh();
+        }
+    }
+
     void agregarArista(int fuente, int destino)
     {
-        // Verificar que src y dest son válidos
+        // Verificar que fuente y destino son válidos
         if (fuente >= 0 && fuente < listaAdyacencia.size() && 
             destino >= 0 && destino < listaAdyacencia.size())
             listaAdyacencia[fuente].push_back(destino);
+        else
+        {
+            printw("Error: Vértices no válidos.\n");
+            refresh();
+        }
+    }
+
+    void eliminarArista(int fuente, int destino)
+    {
+        // Verificar que fuente y destino son válidos
+        if (fuente >= 0 && fuente < listaAdyacencia.size() && 
+            destino >= 0 && destino < listaAdyacencia.size())
+        {
+            // Buscar la arista y eliminarla
+            auto it = find(listaAdyacencia[fuente].begin(), listaAdyacencia[fuente].end(), destino);
+            if (it != listaAdyacencia[fuente].end())
+                listaAdyacencia[fuente].erase(it);
+            else
+            {
+                printw("Error: La arista especificada no existe.\n");
+                refresh();
+            }
+        }
         else
         {
             printw("Error: Vértices no válidos.\n");
@@ -94,7 +129,6 @@ public:
 
             for (int j : listaAdyacencia[i])
                 ss << " -> Vértice " << j << " (Valor: " << valores[j] << ")";
-            ss << "\n";
             strings.push_back(ss.str());
         }
         return strings;

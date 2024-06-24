@@ -27,7 +27,6 @@ void imprimir(T e)
 // lambdas
 auto rng = [](int n) {return rand() % n; }; 
 
-
 int main()
 {
 	initscr(); // iniciar curses: ncurses o pdcurses (linux/macos o windows)
@@ -46,22 +45,13 @@ int main()
 	Lista<Alumno*> alumnos = Lista<Alumno*>(); 
 	Pila<Deportista*> deportistas = Pila<Deportista*>(); 
 	Cola<Destacado*> destacados = Cola<Destacado*>();
-	GrafoDirigido<int> grafo = GrafoDirigido<int>();
+
+	GrafoDirigido<string> grafo = GrafoDirigido<string>();
+
+	int vertCount = 0, arisCount = 0;
 	int alum_in = 0, doce_in = 0;
 	
-	grafo.agregarVertice(10); // Vértice 0 con valor 10
-    grafo.agregarVertice(20); // Vértice 1 con valor 20
-    grafo.agregarVertice(30); // Vértice 2 con valor 30
-    grafo.agregarVertice(40); // Vértice 3 con valor 40
-    grafo.agregarVertice(50); // Vértice 4 con valor 50
 
-    // Agregar algunas aristas
-    grafo.agregarArista(0, 1);
-    grafo.agregarArista(0, 4);
-    grafo.agregarArista(1, 2);
-    grafo.agregarArista(1, 3);
-    grafo.agregarArista(2, 3);
-    grafo.agregarArista(3, 4);
 	// obtener y procesar inputs iniciales
 	do 
 	{
@@ -109,6 +99,7 @@ int main()
 		name += apellidosArr[rng(APELLIDOS_LEN)]; 
 		hash.insertar(dod[d], name); 
 	}
+	// todo inicializacion del BST
 
 	OrdenamientoMerge(dod, doce_in); //Ordenamiento del arreglo con las llaves dod
 
@@ -192,17 +183,142 @@ int main()
 				printw("%i ", dod[i]); 
 			getch();
 		}
-		if (o == 10)
+		else if (o == 10)
 		{
-			vector<string> datos;
-			for (string str : grafo.toStrings())
-				datos.push_back(str);
-			for (string str : grafo.matrizAdyacencia())
-				datos.push_back(str);
-			
-			mostrarFiltrar(datos);
+			// todo: operaciones con BST
 		}
-		if (o == 11) 
+		
+		else if (o == 11)
+		{
+			
+			char input;
+			while (true)
+			{
+				menuGrafos();
+				input = getch();
+				clear();
+				if (input == '1')
+				{
+					vector<string> datos;
+					for (string str : grafo.toStrings())
+						datos.push_back(str);
+					for (string str : grafo.matrizAdyacencia())
+						datos.push_back(str);
+
+					imprimirGrafos(datos);
+				}
+				else if (input == '2')
+				{
+					std::string buscar;
+					int opcion;
+					while (true)
+					{
+						printw("Ingresa el tipo de alumno (1: regular, 2: deportista, 3: destacado): ");
+						opcion = inputTecladoInt();
+						printw("\n");
+						if (opcion >= 1 && opcion <= 3)
+							break;
+					}
+					printw("Ingresa el indice del alumno (si no existe se saltara): ");
+					int alumIndice = inputTecladoInt();
+					printw("\n");
+					std::string res;
+					if(opcion == 1)
+						res = obtenerAlumno(alumnos.Mostrar(), alumIndice);
+					else if(opcion == 2)
+						res = obtenerAlumno(pilaToStrings(deportistas), alumIndice);
+					else if(opcion == 3)
+						res = obtenerAlumno(colaToStrings(destacados), alumIndice);
+					if(res != "" || res.size() != 0)
+					{
+						grafo.agregarVertice(res);
+						vertCount++;
+					}
+				}
+				else if (input == '3')
+				{
+					std::string buscar;
+					int opcion;
+					while (true)
+					{
+						printw("Ingresa el tipo de alumno (1: regular, 2: deportista, 3: destacado): ");
+						opcion = inputTecladoInt();
+						printw("\n");
+						if (opcion >= 1 && opcion <= 3)
+							break;
+					}
+					printw("Ingresa el indice del alumno (si no existe se saltara): ");
+					int alumIndice = inputTecladoInt();
+					printw("\n");
+					std::string res;
+					if(opcion == 1)
+						res = obtenerAlumno(alumnos.Mostrar(), alumIndice);
+					else if(opcion == 2)
+						res = obtenerAlumno(pilaToStrings(deportistas), alumIndice);
+					else if(opcion == 3)
+						res = obtenerAlumno(colaToStrings(destacados), alumIndice);
+					printw("Ingresa el indice del veritice a modificar (si no existe se saltara): ");
+					printw("\n");
+					opcion = inputTecladoInt();
+					if (opcion >= 1 && opcion <= vertCount)
+					{
+						grafo.modificarVertice(opcion, res);
+					}
+					
+				}
+				else if (input == '4')
+				{
+					int origen , llegada;
+					printw("ingresa el indice del vertice de origen: ");
+					origen = inputTecladoInt();
+					printw("\n");
+
+					printw("ingresa el indice del vertice de llegada: ");
+					llegada = inputTecladoInt();
+					printw("\n");
+					
+					if (vertCount != 0 && vertCount >= origen && vertCount >= llegada)
+					{
+						grafo.agregarArista(origen, llegada);
+					}
+					else
+					{
+						printw("No se pudo procesar el cambio!");
+						refresh();
+						getch();
+					}
+				}
+				else if (input == '5')
+				{
+					int origen , llegada;
+					printw("ingresa el indice del vertice de origen: ");
+					origen = inputTecladoInt();
+					printw("\n");
+
+					printw("ingresa el indice del vertice de llegada: ");
+					llegada = inputTecladoInt();
+					printw("\n");
+					
+					if (vertCount != 0 && vertCount >= origen && vertCount >= llegada)
+					{
+						grafo.eliminarArista(origen, llegada);
+					}
+					else
+					{
+						printw("No se pudo procesar el cambio!");
+						refresh();
+						getch();
+					}
+				}
+				
+				else if (input == '\n')
+				{
+					break;
+				}
+				refresh();
+			}
+		}
+		if (o == 12) 
 		{
 			Nodo<Alumno*>* raiz = alumnos.raiz();
 			Nodo<Alumno*>* alumnoActual;
