@@ -5,11 +5,14 @@
 #include "./Utilidades/Graficos.hpp"
 #include "./Utilidades/Input.hpp"
 #include "./Utilidades/Parsers.hpp"
+#include "./Utilidades/Persistencia.hpp"
 #include "./Estructuras_Datos/Hashtable.hpp" 
 #include "./Estructuras_Datos/Pila.hpp"
 #include "./Estructuras_Datos/Cola.hpp"
 #include "./Estructuras_Datos/Lista.hpp"
 #include "./Estructuras_Datos/Grafo.hpp"
+#include "./Estructuras_Datos/BinarySearchTree.hpp"
+#include "./Estructuras_Datos/Rama.hpp"
 #include "./Modelos/Deportista.hpp"
 #include "./Modelos/Alumno.hpp"
 #include "./Modelos/Destacado.hpp"
@@ -26,6 +29,8 @@ void imprimir(T e)
 
 // lambdas
 auto rng = [](int n) {return rand() % n; }; 
+
+
 
 int main()
 {
@@ -45,7 +50,7 @@ int main()
 	Lista<Alumno*> alumnos = Lista<Alumno*>(); 
 	Pila<Deportista*> deportistas = Pila<Deportista*>(); 
 	Cola<Destacado*> destacados = Cola<Destacado*>();
-
+	BinarySearchTree<std::string> nombres = BinarySearchTree<std::string>(nombreToInt, stringRedundante);
 	GrafoDirigido<string> grafo = GrafoDirigido<string>();
 
 	int vertCount = 0, arisCount = 0;
@@ -71,6 +76,18 @@ int main()
 	for (int i = 0; i < alum_in * 0.2; i++)
 		destacados.push(new Destacado());
 
+	std::vector<std::string> actual = alumnos.Mostrar();
+	for(int i = 1; i < actual.size(); i++)
+		nombres.push(actual[i]);
+
+	actual = colaToStrings(destacados);
+	for(int i = 1; i < actual.size(); i++)
+		nombres.push(actual[i]);
+
+	actual = pilaToStrings(deportistas);
+	for(int i = 1; i < actual.size(); i++)
+		nombres.push(actual[i]);
+	
 	do
 	{
 		printw("Ingrese numero de administradores (Minimo 1, Maximo 5): "); 
@@ -185,7 +202,33 @@ int main()
 		}
 		else if (o == 10)
 		{
-			// todo: operaciones con BST
+			while (true)
+			{
+				clear();
+				printw("Como deseas ver el arbol (1: pre order, 2: in order, 3: post order, 4: salir)? ");
+				char in = getch();
+				if (in == '1')
+				{
+					std::vector<std::string> nombres_tmp = nombres.preOrder();
+					mostrarFiltrar(nombres_tmp);
+				}
+				else if (in == '2')
+				{
+					std::vector<std::string> nombres_tmp = nombres.inOrder();
+					mostrarFiltrar(nombres_tmp);
+				}
+				else if (in == '3')
+				{
+					std::vector<std::string> nombres_tmp = nombres.postOrder();
+					mostrarFiltrar(nombres_tmp);
+				}
+				else if (in == '4')
+				{
+					break;
+				}
+			}
+			
+			
 		}
 		
 		else if (o == 11)
@@ -320,6 +363,37 @@ int main()
 		}
 		if (o == 12) 
 		{
+
+			vector<string> salidatxt;
+
+			salidatxt.push_back(string("=========================================================="));
+			salidatxt.push_back(string("LISTAS: "));
+			for(string str : alumnos.Mostrar())
+				salidatxt.push_back(str);
+				
+			salidatxt.push_back(string("=========================================================="));
+			salidatxt.push_back(string("COLAS: "));
+			for(string str : colaToStrings(destacados))
+				salidatxt.push_back(str);
+
+			salidatxt.push_back(string("=========================================================="));
+			salidatxt.push_back(string("PILAS: "));
+			for(string str : pilaToStrings(deportistas))
+				salidatxt.push_back(str);
+			
+			salidatxt.push_back(string("=========================================================="));
+			salidatxt.push_back(string("BST: "));
+			for(string str : nombres.inOrder())
+				salidatxt.push_back(str);
+
+			salidatxt.push_back(string("=========================================================="));
+			salidatxt.push_back(string("GRAFOS: "));
+			for(string str : grafo.toStrings())
+				salidatxt.push_back(str);
+			for(string str : grafo.matrizAdyacencia())
+				salidatxt.push_back(str);
+
+			guardarVectorEnArchivo(salidatxt);
 			Nodo<Alumno*>* raiz = alumnos.raiz();
 			Nodo<Alumno*>* alumnoActual;
 			Deportista* deportista;
@@ -353,4 +427,5 @@ int main()
 	}
 	endwin();
 	return 0;
+
 }
