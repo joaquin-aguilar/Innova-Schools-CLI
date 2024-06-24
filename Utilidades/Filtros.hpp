@@ -57,4 +57,30 @@ auto obtenerIndices = [](const std::string& frase, const std::string& objetivo)
     return indices;
 };
 
+int nombreToInt (std::string nombre)
+{
+    int res = 0;
+    std::vector<std::string> palabras = dividirPalabras(nombre);
+    if (palabras.size() >= 6) 
+    { 
+        std::string nombre1 = palabras[3];
+        std::string nombre2 = palabras[4];
+        std::string apellido1 = palabras[5];
+        std::string apellido2 = palabras[6];
+
+        char inicial1 = toupper(nombre1[0]);
+        char inicial2 = toupper(nombre2[0]);
+        char inicial3 = toupper(apellido1[0]);
+        char inicial4 = toupper(apellido2[0]);
+
+        res += ((int)inicial1 - 64) * 10000000;
+        res += ((int)inicial2 - 64) * 100000;
+        res += ((int)inicial3 - 64) * 1000;
+        res += ((int)inicial4 - 64);
+    }
+
+    return res;
+}
+std::string stringRedundante(std::string e) {return e;}
+
 #endif // !FILTROS_HPP

@@ -16,8 +16,9 @@ public:
 	Alumno() 
 	{
 		auto rng = [](int a, int b) {return a + rand() % b; };
-		this->nombre += nombresArr[rng(0, NOMBRES_LEN)] + " "; 
-			this->nombre += apellidosArr[rng(0, APELLIDOS_LEN)];
+		this->nombre += nombresArr[rng(0, NOMBRES_LEN)] + " "  + nombresArr[rng(0, NOMBRES_LEN)]; 
+		this->nombre += " "; 
+		this->nombre += apellidosArr[rng(0, APELLIDOS_LEN)] + " " + apellidosArr[rng(0, APELLIDOS_LEN)];
 
 		this->grado = rng(1, 6);
 

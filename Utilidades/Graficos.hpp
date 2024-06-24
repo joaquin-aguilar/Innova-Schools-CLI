@@ -63,8 +63,9 @@ void menu()
 	printw("7.  Mostrar cantidad de alumnos registrados\n");
 	printw("8.  Mostrar hash con administradores\n");
 	printw("9.  Mostrar llaves de Hash\n");
-    printw("10. Imprimir grafos y matriz de adyacencia\n");
-    printw("11. Salir\n");
+	printw("10. Mostrar Alumnos organizados (BST)\n");
+    printw("11. Imprimir grafos y matriz de adyacencia\n");
+    printw("12. Salir\n");
 	printw("Tu opcion: ");
 	refresh();
 }
