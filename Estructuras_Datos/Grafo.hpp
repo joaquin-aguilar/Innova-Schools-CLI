@@ -1,6 +1,7 @@
 #include <curses.h>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -54,7 +55,7 @@ public:
             destino >= 0 && destino < listaAdyacencia.size())
         {
             // Buscar la arista y eliminarla
-            auto it = find(listaAdyacencia[fuente].begin(), listaAdyacencia[fuente].end(), destino);
+            auto it = std::find(listaAdyacencia[fuente].begin(), listaAdyacencia[fuente].end(), destino);
             if (it != listaAdyacencia[fuente].end())
                 listaAdyacencia[fuente].erase(it);
             else
